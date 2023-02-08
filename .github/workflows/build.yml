@@ -2,8 +2,8 @@ name: Build Project
 on:
   push:
     branches: master
-  paths-ignore:
-    - 'k8s-infra/*'
+    paths-ignore:
+      - 'k8s-infra/*'
 jobs:
   build-server-docker-image:
     runs-on: ubuntu-latest

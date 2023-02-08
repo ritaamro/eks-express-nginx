@@ -1,0 +1,37 @@
+name: Build Project
+on:
+  push:
+    branches: master
+jobs:
+  build-server-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo code
+        uses: actions/checkout@v3
+      - name: Log into dockerhub
+        run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Change into the express server directory
+        run: cd ./server
+      - name: Build the express server's docker image
+        run: | 
+          docker --version
+          docker build -t eks-express .
+          docker tag eks-express ${{ secrets.DOCKERHUB_USERNAME }}/eks-express:latest
+      - name: Upload docker image to DockerHub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/eks-express
+  build-nginx-reverse-proxy-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo code
+        uses: actions/checkout@v3
+      - name: Log into dockerhub
+        run: docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Change into the nginx web server's directory
+        run: cd ./nginx
+      - name: Build nginx's docker image
+        run: | 
+          docker --version
+          docker build -t eks-nginx .
+          docker tag eks-nginx ${{ secrets.DOCKERHUB_USERNAME }}/eks-nginx:latest
+      - name: Upload docker image to DockerHub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/eks-nginx

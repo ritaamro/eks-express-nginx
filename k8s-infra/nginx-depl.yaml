@@ -30,7 +30,7 @@ spec:
         - containerPort: 8080
       restartPolicy: Always
 
-----
+---
 apiVersion: v1
 kind: Service
 metadata:

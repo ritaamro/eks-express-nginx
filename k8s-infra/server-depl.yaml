@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: simple-express
-        image: ritaamro7/simple-express
+        image: ritaamro7/eks-express
         ports:
         - containerPort: 8080
         livenessProbe:

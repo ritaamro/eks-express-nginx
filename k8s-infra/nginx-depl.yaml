@@ -16,7 +16,7 @@ spec:
         service: reverseproxy
     spec:
       containers:
-      - image: ritaamro7/reverseproxy
+      - image: ritaamro7/eks-nginx
         name: reverseproxy
         imagePullPolicy: Always          
         resources:
